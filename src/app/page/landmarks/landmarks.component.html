@@ -1,0 +1,179 @@
+<!-- search zone -->
+<div style="
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;">
+  <div>
+    <mat-label>Number of Landmark</mat-label>
+    <!-- pass id to Serch function in landmarks.ts -->
+    <input #id matInput type="number" style="margin-left: 10px; width:50px; height: 30px;"
+      (keydown.enter)="Search(id.value)">
+    <button mat-raised-button color="primary" style="margin-left: 10px; height: 30px; font-family: 'Mali', cursive;"
+      (click)="Search(id.value)">
+      Search
+    </button>
+    <!-- end -->
+  </div>
+
+
+  <div>
+    <mat-label style="margin-left:100px;">Select Country</mat-label>
+    <select name="country" style="margin-left: 10px; height: 30px;" [(ngModel)]="country"
+      (ngModelChange)="searchByCountry()">
+      <option selected>{{this.countries[0]}}</option>
+      <option>{{this.countries[1]}}</option>
+      <option>{{this.countries[2]}}</option>
+      <option >ทั้งหมด</option>
+    </select>
+  </div>
+
+
+  <div>
+    <mat-label style="margin-left:100px;">Name</mat-label>
+    <input #name matInput type="text" style="margin-left: 10px; width:50px; height: 30px;"
+      (keydown.enter)="searchByName(name.value)">
+    <button mat-raised-button color="primary" style="margin-left: 10px; height: 30px; font-family: 'Mali', cursive;"
+      (click)="searchByName(name.value)">
+      Search
+    </button>
+  </div>
+
+
+</div>
+
+
+
+
+<!-- one landmark -->
+<div style="
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;" *ngIf="this.isMultiple == 'show-one'">
+  <div style="
+      margin-top: 20px;
+      display: flex;
+      position: relative;
+      justify-content: start;
+      margin-left: 200px;
+      margin-right: 200px;
+      background-color: lightpink;">
+    <div class="grow" (click)="selectCountry(this.landmark)">
+      <img src="{{ this.landmark.url}}" alt="image" width="400px">
+    </div>
+    <div style="display: flex; position: relative; flex-direction: column;">
+      <div style="margin-left: 20px;">
+        <span style="font-size: 30px;">{{this.landmark.name}}</span>
+      </div>
+      <div style="margin-left: 20px;">
+        {{this.landmark.country}}
+      </div>
+      <div style="margin-left: 20px;">
+        {{this.landmark.detail}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- multi landmark -->
+<div *ngIf="this.isMultiple == 'show-byCountry'">
+  <div style="
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;" *ngFor="let place of this.landmarksByCountry">
+    <div style="
+      margin-top: 20px;
+      display: flex;
+      position: relative;
+      justify-content: start;
+      margin-left: 200px;
+      margin-right: 200px;
+      background-color: lightpink;">
+      <div class="grow" (click)="selectCountry(place)">
+        <img src="{{ place.url}}" alt="image" width="400px">
+      </div>
+      <div style="display: flex; position: relative; flex-direction: column;">
+        <div style="margin-left: 20px;">
+          <span style="font-size: 30px;">{{place.name}}</span>
+        </div>
+        <div style="margin-left: 20px;">
+          {{place.country}}
+        </div>
+        <div style="margin-left: 20px;">
+          {{place.detail}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- searchByName -->
+<div *ngIf="this.isMultiple == 'show-byName'">
+  <div style="
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;" *ngFor="let placeByName of this.landmarksByName">
+    <div style="
+      margin-top: 20px;
+      display: flex;
+      position: relative;
+      justify-content: start;
+      margin-left: 200px;
+      margin-right: 200px;
+      background-color: lightpink;">
+      <div class="grow" (click)="selectCountry(placeByName)">
+        <img src="{{ placeByName.url}}" alt="image" width="400px">
+      </div>
+      <div style="display: flex; position: relative; flex-direction: column;">
+        <div style="margin-left: 20px;">
+          <span style="font-size: 30px;">{{placeByName.name}}</span>
+        </div>
+        <div style="margin-left: 20px;">
+          {{placeByName.country}}
+        </div>
+        <div style="margin-left: 20px;">
+          {{placeByName.detail}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- all landmark -->
+<div *ngIf="this.isMultiple == 'show-all'">
+  <div style="
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;" *ngFor="let place of this.landmarks">
+    <div style="
+      margin-top: 20px;
+      display: flex;
+      position: relative;
+      justify-content: start;
+      margin-left: 200px;
+      margin-right: 200px;
+      background-color: lightpink;">
+      <div class="grow" (click)="selectCountry(place)">
+        <img src="{{ place.url}}" alt="image" width="400px">
+      </div>
+      <div style="display: flex; position: relative; flex-direction: column;">
+        <div style="margin-left: 20px;">
+          <span style="font-size: 30px;">{{place.name}}</span>
+        </div>
+        <div style="margin-left: 20px;">
+          {{place.country}}
+        </div>
+        <div style="margin-left: 20px;">
+          {{place.detail}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
